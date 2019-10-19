@@ -1,3 +1,7 @@
+<%@ page contentType="text/html" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="org.sqlite.*" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,17 +19,31 @@
                 <legend>Categories</legend>
                 <div class="form-group">
                     <select class="custom-select">
-                        <option selected="">Hello</option>
-                        <option value="1">First Option</option>
-                        <option value="2">Second Option</option>
+                        <%
+                            Class.forName("org.sqlite.JDBC");
+                            Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+
+                            Statement stat = conn.createStatement();
+
+                            ResultSet rs = stat.executeQuery("SELECT category FROM ITEMS;");
+
+                            while (rs.next()) {
+                                out.println("<option value=\"" + rs.getString("category") + "\">" + rs.getString("category") + "</option>");
+                            }
+                        %>
                     </select>
                 </div>
             </fieldset>
             <fieldset>
                 <legend>Location</legend>
                 <select class="custom-select">
-                    <option value="Straya">Straya</option>
-                    <option value="Asia">Asia</option>
+                    <%
+                        rs = stat.executeQuery("SELECT location FROM ITEMS;");
+
+                        while (rs.next()) {
+                            out.println("<option value=\"" + rs.getString("location") + "\">" + rs.getString("location") + "</option>");
+                        }
+                    %>
                 </select>
             </fieldset>
             <button>Filter</button>
@@ -35,38 +53,32 @@
                 <button class="btn" onclick="listView()"><i class="fa fa-bars"></i> List</button> 
                 <button class="btn active" onclick="gridView()"><i class="fa fa-th-large"></i>Grid</button>
             </div>
-            <section class="item-row">
-                <div class="item-col">
-                    <div class="itemImg">
-                        <img src="../desktop1.jp2">
-                    </div>
-                    <div class="itemDetails">
-                        <a href="itemPage.html?itemID=1">Item Name</a>
-                        <p>[Item Price]</p>
-                        <p>[Item Bid Date]</p>
-                    </div>
-                </div>
-                <div class="item-col">
-                    <div class="itemImg">
-                        <img src="../desktop1.jp2">
-                    </div>
-                    <div class="itemDetails">
-                        <a href="itemPage.html?itemID=1">Item Name</a>
-                        <p>[Item Price]</p>
-                        <p>[Item Bid Date]</p>
-                    </div>
-                </div>
-            </section>
-            <section class="item-row">
-                <div class="itemImg">
-                    <img src="../desktop1.jp2">
-                </div>
-                <div class="itemDetails">
-                    <a href="itemPage.html?itemID=1">Item Name</a>
-                    <p>[Item Price]</p>
-                    <p>[Item Bid Date]</p>
-                </div>
-            </section>
+            <%
+                rs = stat.executeQuery("SELECT filename, name, price, endDate FROM ITEMS;");
+
+                while (rs.next()) {
+                    out.println("<section class=\"item-row\">");
+                    for(int i = 0; i < 2; i++) {
+                        out.println("<div class=\"item-col\">");
+                        out.println("<div class=\"itemImg\">");
+                        out.println("<img src=\"../assets/" + rs.getString("filename") + "\">");
+                        out.println("</div>");
+                        out.println("<div class=\"itemDetails\">");
+                        out.println("<a href=\"itemPage.html?item=" + rs.getString("name") + "\">" + rs.getString("name") + "</a>");
+                        out.println("<p>" + rs.getString("price") + "</p>");
+                        out.println("<p>" + rs.getString("endDate") + "</p>");
+                        out.println("</div>");
+                        out.println("</div>");
+                        rs.next();
+                    }
+                    out.println("</section>");
+                }
+
+                rs.close();
+                conn.close();
+            %>
+            <br>
+            <br>
         </main>
     </body>
         
