@@ -17,4 +17,6 @@
 		<label><span> </span><input type="submit" value="Submit" /></label>
 	</form>
 	</div>
+     <%@ include file="footer.html" %>
+	</body>
 </html>

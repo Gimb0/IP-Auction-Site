@@ -1,3 +1,7 @@
+<%@ page contentType="text/html" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="org.sqlite.*" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -11,6 +15,7 @@
 </head>
 
 <body>
+	<%-- <%@ include file="header.html" %> --%>
 
 	<div class="container card">
 		<div>
@@ -51,8 +56,8 @@
 			</table>
 		</div>
 	</div>
-	</div>
 
+    <%-- <%@ include file="footer.html" %> --%>
 </body>
 
 </html>
