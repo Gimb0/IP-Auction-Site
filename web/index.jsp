@@ -14,6 +14,7 @@
     </head>
 
     <body>
+        <%@ include file="header.html" %>
         <div class="filterList">
             <fieldset>
                 <legend>Categories</legend>
@@ -80,6 +81,7 @@
             <br>
             <br>
         </main>
+        <%@ include file="footer.html" %>
     </body>
         
     <script>
