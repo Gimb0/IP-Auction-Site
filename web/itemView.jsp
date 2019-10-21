@@ -4,60 +4,87 @@
 
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BJM Auctions</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
 
-<head>
-	<meta charset="UTF-8">
-	<title>BJM Auctions</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	<link rel="stylesheet" type="text/css" href="bootstrap.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+	<body>
+		<%@ include file="header.html" %>
 
-<body>
-	<%-- <%@ include file="header.html" %> --%>
+		<br>
+		<br>
 
-	<div class="container card">
-		<div>
-			<img src="../assets/toaster.jpg" height="250px" width="250px" style="float:right">
-			<h1 name="iName" id="iName" class="font-weight-bold">Toaster Sample text to replace</h1>
-			<h4 name="cDate" id="cDate">Closing on 25/04/2019</h3>
-				<h4 name="lPrice" id="lPrice">$12.99</h3>
-		</div>
-		<form>
+		<div class="container card">
 			<div>
-				<label for="bid" class="font-weight-bold">Enter an amount to bid</label>
-				<input type="number" name="bid" id="bid" class="form-control" placeholder="0.00" min="0.00"
-					max="10000.00" step="0.01" required>
+				<%
+					String itemName = request.getParameter("item");
+					Class.forName("org.sqlite.JDBC");
+					Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+
+					Statement stat = conn.createStatement();
+
+					ResultSet rs = stat.executeQuery("SELECT * FROM items WHERE name=\"" + itemName + "\"");
+
+					rs.next();
+					out.println("<img src=\"../assets/" + rs.getString("filename") + "\" height=\"250px\" width=\"250px\" style=\"float:right\">");
+					out.println("<h1 name=\"iName\" id=\"iName\" class=\"font-weight-bold\">" + rs.getString("name") + "</h1>");
+					out.println("<h4 name=\"cDate\" id=\"cDate\">Closing on: " + rs.getString("endDate") + "</h3>");
+					out.println("<h4 name=\"lPrice\" id=\"lPrice\">" + rs.getString("price") +"</h3>");
+					
+				%>
+			</div>
+			<form>
+				<div>
+					<label for="bid" class="font-weight-bold">Enter an amount to bid</label>
+					<input type="number" name="bid" id="bid" class="form-control" placeholder="0.00" min="0.00"
+						max="10000.00" step="0.01" required>
+				</div>
+				<div>
+					<input type="submit" name="confirm" value="confirm" class="btn btn-success btn-lg btn-block">
+				</div>
+			</form>
+			<div>
+				<h4>Description</h4>
+				<p id="iDesc"><% out.println(rs.getString("description")); %></p>
 			</div>
 			<div>
-				<input type="submit" name="confirm" value="confirm" class="btn btn-success btn-lg btn-block">
-			</div>
-		</form>
-		<div>
-			<h4>Description</h4>
-			<p id="iDesc">A toaster is an electric small appliance designed to expose various types of sliced bread to
-				radiant
-				heat, browning the bread so it becomes toast</p>
-		</div>
-		<div>
-			<h4>Bidding History</h4>
-			<table id="bHistory">
-				<thead>
-					<th>User</th>
-					<th>Amount</th>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Josh</td>
-						<td>$10.50</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+				<h4>Bidding History</h4>
+				<table id="bHistory">
+					<thead>
+						<th>Time | </th>
+						<th>User | </th>
+						<th>Amount</th>
+					</thead>
+					<tbody>
+						<tr>
+						<%
+							rs.close();
+							rs = stat.executeQuery("SELECT username, price, time FROM bidhistory WHERE itemName=\""+ itemName + "\"");
 
-    <%-- <%@ include file="footer.html" %> --%>
-</body>
+							while(rs.next()) {
+								out.println("<tr>");
+									out.println("<td>" + rs.getString("time") + "</td>");
+									out.println("<td>" + rs.getString("username") + "</td>");
+									out.println("<td>" + rs.getString("price") + "</td>");
+								out.println("</tr>");
+							}
+						%>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<% 
+			rs.close();
+			conn.close();
+		%>
+
+		<%@ include file="footer.html" %>
+	</body>
 
 </html>

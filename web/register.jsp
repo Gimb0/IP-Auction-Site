@@ -3,7 +3,8 @@
 <html>
 	<head>
 		<title>BJM Bids Register Form</title> <head>
-        <link rel="stylesheet" type="text/css" href="mystyle.css"/>
+        <link rel="stylesheet" type="text/css" href="styles.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css">
 	</head>
 	
 	<body>

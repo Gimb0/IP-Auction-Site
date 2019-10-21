@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<title>BJM Bids Login Form</title>
-        <link rel="stylesheet" type="text/css" href="mystyle.css">
+        <link rel="stylesheet" type="text/css" href="styles.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap.css">
 	</head>
 	
 	<body>

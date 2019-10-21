@@ -15,7 +15,10 @@
 </head>
 
 <body>
-    <%-- <%@ include file="header.html" %> --%>
+    <%@ include file="header.html" %>
+
+	<br>
+	<br>
 
 	<div class="container card">
 		<div>
@@ -110,7 +113,7 @@
 		</form>
 	</div>
 
-    <%-- <%@ include file="footer.html" %> --%>
+    <%@ include file="footer.html" %>
 
 </body>
 
