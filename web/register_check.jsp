@@ -18,6 +18,7 @@
 		
 		if(vName.isEmpty() || vUname.isEmpty() || vPasswd.isEmpty() || vEmail.isEmpty())
 		{
+			session.setAttribute("error", "ERROR");
 			response.sendRedirect(request.getContextPath() + "home.jsp");
 		}
 		else
@@ -27,6 +28,7 @@
 				Statement stat = conn.createStatement();
 				int insertStat = stat.executeUpdate("INSERT INTO users (email, username, name, password) VALUES (\"" + vEmail + "\", \"" + vUname + "\", \"" + vName + "\", \"" + vPasswd + "\");");
 				conn.close();
+				session.setAttribute("error", null);
 				session.setAttribute("uname", vUname);
 				response.sendRedirect("index.jsp");
 			} catch(SQLiteException e) {
