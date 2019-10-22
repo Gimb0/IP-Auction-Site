@@ -54,10 +54,10 @@
 			</div>
 			<div>
 				<h4>Bidding History</h4>
-				<table id="bHistory">
+				<table class="table table-hover" id="bHistory">
 					<thead>
-						<th>Time | </th>
-						<th>User | </th>
+						<th>Time</th>
+						<th>User</th>
 						<th>Amount</th>
 					</thead>
 					<tbody>

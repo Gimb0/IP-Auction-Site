@@ -6,7 +6,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>BJM Bids Register Form</title> <head>
-        <link rel="stylesheet" type="text/css" href="mystyle.css"/>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap.css">
 	</head>
 	
 	<body>

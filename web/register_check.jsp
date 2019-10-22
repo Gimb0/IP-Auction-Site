@@ -16,20 +16,22 @@
 		String vPasswd = request.getParameter("passwd");
 		String vEmail = request.getParameter("email");
 		
-		session.setAttribute("uname", vUname);
-		
 		if(vName.isEmpty() || vUname.isEmpty() || vPasswd.isEmpty() || vEmail.isEmpty())
 		{
-			response.sendRedirect(request.getContextPath() + "/jsps/home.jsp");
+			response.sendRedirect(request.getContextPath() + "home.jsp");
 		}
 		else
 		{
-			
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
-			Statement stat = conn.createStatement();
-			int insertStat = stat.executeUpdate("INSERT INTO users (email, username, name, password) VALUES (" + vEmail + ", " + vUname + ", " + vName + ", " + vPasswd + ");");
-			conn.close();
-			response.sendRedirect(request.getContextPath() + "/jsps/register_success.jsp");
+			try {
+				Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+				Statement stat = conn.createStatement();
+				int insertStat = stat.executeUpdate("INSERT INTO users (email, username, name, password) VALUES (\"" + vEmail + "\", \"" + vUname + "\", \"" + vName + "\", \"" + vPasswd + "\");");
+				conn.close();
+				session.setAttribute("uname", vUname);
+				response.sendRedirect("index.jsp");
+			} catch(SQLiteException e) {
+				response.sendRedirect("register.jsp?fail=exists");
+			}
 		}
 	 %>
 		
