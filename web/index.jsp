@@ -55,8 +55,8 @@
             </form>
         </div>
         <%
-            String uname = request.getParameter("uname");
-            if(uname != "" && uname != null) {
+            String uName = (String)session.getAttribute("uname");
+            if(uName != "" && uName != null) {
                 out.println("<a href=\"itemEdit.jsp\"><button class=\"btn active\">Create Item</button></a>");
             }
         %>

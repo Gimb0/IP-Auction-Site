@@ -11,7 +11,6 @@
 		
 		String uname = request.getParameter("uname"); 
 		String passwd = request.getParameter("password"); 
-		session.setAttribute("uname", uname);
 		
 		if(uname.isEmpty() || passwd.isEmpty())
 		{
@@ -20,7 +19,7 @@
 		else
 		{
 			session.setAttribute("uname", uname);		
-			response.sendRedirect("login_success.jsp");
+			response.sendRedirect("index.jsp");
 		}
 			
 		%> 

@@ -38,14 +38,15 @@
 					
 				%>
 			</div>
-			<form>
+			<form action="addBid.jsp" method="POST">
 				<div>
+					<input type="hidden" value="<% out.println(itemName); %>">
 					<label for="bid" class="font-weight-bold">Enter an amount to bid</label>
-					<input type="number" name="bid" id="bid" class="form-control" placeholder="0.00" min="0.00"
-						max="10000.00" step="0.01" required>
+					<input type="number" name="bid" id="bid" class="form-control" 
+					min=<% out.println(rs.getString("price")); %>" value=<% out.println((rs.getString("price"))); %> required>
 				</div>
 				<div>
-					<input type="submit" name="confirm" value="confirm" class="btn btn-success btn-lg btn-block">
+					<input type="submit" class="btn btn-success btn-lg btn-block">
 				</div>
 			</form>
 			<div>
