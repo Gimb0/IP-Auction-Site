@@ -17,12 +17,11 @@
 		
 		if(name.isEmpty() || uname.isEmpty() || passwd.isEmpty() || email.isEmpty())
 		{
-			response.sendRedirect(request.getContextPath() + "/jsps/home.jsp");
+			response.sendRedirect(request.getContextPath() + "home.jsp");
 		}
 		else
 		{
-			INSERT INTO users (email, username, name, password) VALUES (vEmail, vUname, vName, vPasswd);
-			response.sendRedirect(request.getContextPath() + "/jsps/register_success.jsp");
+			response.sendRedirect(request.getContextPath() + "register_success.jsp");
 		}
 	 %>
 		
