@@ -19,6 +19,7 @@
 		}
 		else
 		{
+			session.setAttribute("uname", uname);		
 			response.sendRedirect("login_success.jsp");
 		}
 			
