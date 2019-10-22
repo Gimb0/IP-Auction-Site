@@ -15,11 +15,11 @@
 		
 		if(uname.isEmpty() || passwd.isEmpty())
 		{
-			response.sendRedirect(request.getContextPath() + "/jsps/home.jsp");
+			response.sendRedirect(request.getContextPath() + "home.jsp");
 		}
 		else
 		{
-			response.sendRedirect(request.getContextPath() + "/jsps/login_success.jsp");
+			response.sendRedirect(request.getContextPath() + "login_success.jsp");
 		}
 			
 		%> 
