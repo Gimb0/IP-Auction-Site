@@ -16,7 +16,7 @@
 		String vPasswd = request.getParameter("passwd");
 		String vEmail = request.getParameter("email");
 		
-		session.setAttribute("uname", uname);
+		session.setAttribute("uname", vUname);
 		
 		if(vName.isEmpty() || vUname.isEmpty() || vPasswd.isEmpty() || vEmail.isEmpty())
 		{
