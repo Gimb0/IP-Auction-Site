@@ -14,10 +14,12 @@
 		
 		if(uname.isEmpty() || passwd.isEmpty())
 		{
+			session.setAttribute("error", "ERROR");
 			response.sendRedirect("home.jsp");
 		}
 		else
 		{
+			session.setAttribute("error", null);
 			session.setAttribute("uname", uname);		
 			response.sendRedirect("index.jsp");
 		}
