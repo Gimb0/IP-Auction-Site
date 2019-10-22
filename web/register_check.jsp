@@ -17,11 +17,16 @@
 		
 		if(name.isEmpty() || uname.isEmpty() || passwd.isEmpty() || email.isEmpty())
 		{
-			response.sendRedirect(request.getContextPath() + "home.jsp");
+			response.sendRedirect(request.getContextPath() + "/jsps/home.jsp");
 		}
 		else
 		{
-			response.sendRedirect(request.getContextPath() + "register_success.jsp");
+			
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+			Statement stat = conn.createStatement();
+			int insertStat = stat.executeUpdate("INSERT INTO users (email, username, name, password) VALUES (" + vEmail + ", " + vUname + ", " + vName + ", " + vPasswd + ");";
+			conn.close();
+			response.sendRedirect(request.getContextPath() + "/jsps/register_success.jsp");
 		}
 	 %>
 		
