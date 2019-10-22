@@ -54,6 +54,12 @@
                 <button type="submit" class="btn btn-primary">Filter</button><button type="button" class="btn btn-primary" onclick="clearFilter()" style="float: right;">Clear</button>
             </form>
         </div>
+        <%
+            String uName = (String)session.getAttribute("uname");
+            if(uName != "" && uName != null) {
+                out.println("<a href=\"itemEdit.jsp\"><button class=\"btn active\">Create Item</button></a>");
+            }
+        %>
         <main class="auctionItems">
             <div id="btnContainer">
                 <button class="btn" onclick="listView()"><i class="fa fa-bars"></i> List</button> 

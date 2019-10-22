@@ -11,15 +11,17 @@
 		
 		String uname = request.getParameter("uname"); 
 		String passwd = request.getParameter("password"); 
-		session.setAttribute("uname", uname);
 		
 		if(uname.isEmpty() || passwd.isEmpty())
 		{
-			response.sendRedirect(request.getContextPath() + "home.jsp");
+			session.setAttribute("error", "ERROR");
+			response.sendRedirect("home.jsp");
 		}
 		else
 		{
-			response.sendRedirect(request.getContextPath() + "login_success.jsp");
+			session.setAttribute("error", null);
+			session.setAttribute("uname", uname);		
+			response.sendRedirect("index.jsp");
 		}
 			
 		%> 
