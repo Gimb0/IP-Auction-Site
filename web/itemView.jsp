@@ -51,7 +51,9 @@
 				</div>
 			</form>
 			
-			<div>
+			<div class="item-details">
+				<h4>Description</h4>
+				<p class=""
 			</div>
 
 			<div>
