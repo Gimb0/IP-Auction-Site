@@ -29,12 +29,21 @@
 		{
 			try {
 				Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
-				Statement stat = conn.createStatement();
+				Statement stat = conn.createStatement();    
+				ResultSet rs = stat.executeUpdate("SELECT email, password FROM users where email = \"" + email + "\");");
 				
-				int insertStat = stat.executeUpdate("INSERT INTO users (email, username, name, password) VALUES (\"" + email + "\", \"" + uname + "\", \"" + name + "\", \"" + passwd + "\");");
+				while (rs.next()) {
+					if (!rs.getString("email") != null){
+						<%--Log In Func--%>
+						conn.close();
+						response.sendRedirect("index.jsp");
+					}
+					else {
+						session.setAttribute("noUserExists", "No user found with this email.");
+						response.sendRedirect("register.jsp");
+					}
+				}
 				
-				conn.close();
-				response.sendRedirect("index.jsp");
 			} catch(SQLiteException e) {
 				session.setAttribute("noUserExists", "No user found with this email.");
 				response.sendRedirect("register.jsp");
