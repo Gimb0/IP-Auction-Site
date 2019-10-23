@@ -14,7 +14,7 @@
     </head>
         
     <body>
-        <%@ include file="header.html" %>
+        <%@ include file="header.jsp" %>
         <br>
         <br>
 
@@ -30,7 +30,7 @@
 
                                 Statement stat = conn.createStatement();
 
-                                ResultSet rs = stat.executeQuery("SELECT category FROM items;");
+                                ResultSet rs = stat.executeQuery("SELECT DISTINCT category FROM items;");
 
                                 while (rs.next()) {
                                     out.println("<option value=\"" + rs.getString("category") + "\">" + rs.getString("category") + "</option>");
@@ -55,9 +55,8 @@
             </form>
         </div>
         <%
-            String uName = (String)session.getAttribute("uname");
             if(uName != "" && uName != null) {
-                out.println("<a href=\"itemEdit.jsp\"><button class=\"btn active\">Create Item</button></a>");
+                out.println("<a href=\"itemCreate.jsp\"><button class=\"btn active\">Create Item</button></a>");
             }
         %>
         <main class="auctionItems">
@@ -82,7 +81,7 @@
                 }
 
                 
-                rs = stat.executeQuery("SELECT filename, name, price, endDate FROM ITEMS" + queryFilter);
+                rs = stat.executeQuery("SELECT filename, name, curPrice, endDate FROM ITEMS" + queryFilter);
 
                 try {
                     while (rs.next()) {
@@ -90,11 +89,11 @@
                         for(int i = 0; i < 2; i++) {
                             out.println("<div class=\"item-col\">");
                             out.println("<div class=\"itemImg\">");
-                            out.println("<img src=\"../assets/" + rs.getString("filename") + "\">");
+                            out.println("<img src=\"../assets/" + rs.getString("filename") + "\" onerror=this.src='../assets/alt.jpg'>");
                             out.println("</div>");
                             out.println("<div class=\"itemDetails\">");
                             out.println("<a href=\"itemView.jsp?item=" + rs.getString("name") + "\">" + rs.getString("name") + "</a>");
-                            out.println("<p>" + rs.getString("price") + "</p>");
+                            out.println("<p>" + rs.getString("curPrice") + "</p>");
                             out.println("<p>" + rs.getString("endDate") + "</p>");
                             out.println("</div>");
                             out.println("</div>");

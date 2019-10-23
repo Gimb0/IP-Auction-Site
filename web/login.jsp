@@ -11,7 +11,7 @@
 	
 	<body>
 	
-     <%@ include file="header.html" %>
+     <%@ include file="header.jsp" %>
 	 
 	<h1>BJM Bids Login Form</h1>
 	

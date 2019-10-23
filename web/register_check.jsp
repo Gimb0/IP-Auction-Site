@@ -19,7 +19,7 @@
 		if(vName.isEmpty() || vUname.isEmpty() || vPasswd.isEmpty() || vEmail.isEmpty())
 		{
 			session.setAttribute("error", "ERROR");
-			response.sendRedirect(request.getContextPath() + "home.jsp");
+			response.sendRedirect("home.jsp");
 		}
 		else
 		{

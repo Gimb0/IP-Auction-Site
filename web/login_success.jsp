@@ -10,7 +10,7 @@
 	<table style="with: 50%">
 	<tr><td>
 <a>Welcome <% out.println(session.getAttribute("uname").toString()); %>! You have logged in.</a></td></tr>
-<tr></tr><tr><td></td><td></td><td><a href="register_3.jsp"><b>Logout</b></a></td></tr>
+<tr></tr><tr><td></td><td></td><td><a href="logout.jsp"><b>Logout</b></a></td></tr>
 </table>
 </body>
 </html>

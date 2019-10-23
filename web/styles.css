@@ -17,17 +17,16 @@
     }
 
     p {
-        background: darkgray;
-        color: white;
+		border-style: solid;
+		border-width: 10px;
+		border: black;
         padding: 12px;
     }
 
     h1 {
         padding: 10px;
-        background: rgb(0, 153, 51);
         color: black;
-        font-family:courier,arial,helvetica;
-        margin-top: -17px;
+		font-family:courier,arial,helvetica;
     }
 	
 	.form-style-2{

@@ -14,7 +14,7 @@
 	</head>
 
 	<body>
-		<%@ include file="header.html" %>
+		<%@ include file="header.jsp" %>
 
 		<br>
 		<br>
@@ -28,13 +28,14 @@
 
 					Statement stat = conn.createStatement();
 
-					ResultSet rs = stat.executeQuery("SELECT * FROM items WHERE name=\"" + itemName + "\"");
+					ResultSet rs = stat.executeQuery("SELECT filename, name, endDate, curPrice, description FROM items WHERE name=\"" + itemName + "\"");
+					
 
 					rs.next();
 					out.println("<img src=\"../assets/" + rs.getString("filename") + "\" height=\"250px\" width=\"250px\" style=\"float:right\">");
-					out.println("<h1 name=\"iName\" id=\"iName\" class=\"font-weight-bold\">" + rs.getString("name") + "</h1>");
+					out.println("<h1 name=\"iName\" id=\"iName\"><strong>" + rs.getString("name") + "</strong></h1>");
 					out.println("<h4 name=\"cDate\" id=\"cDate\">Closing on: " + rs.getString("endDate") + "</h3>");
-					out.println("<h4 name=\"lPrice\" id=\"lPrice\">" + rs.getString("price") +"</h3>");
+					out.println("<h4 name=\"lPrice\" id=\"lPrice\">" + rs.getString("curPrice") +"</h3>");
 					
 				%>
 			</div>
@@ -43,17 +44,16 @@
 					<input type="hidden" value="<% out.println(itemName); %>">
 					<label for="bid" class="font-weight-bold">Enter an amount to bid</label>
 					<input type="number" name="bid" id="bid" class="form-control" 
-					min=<% out.println(rs.getString("price")); %>" value=<% out.println((rs.getString("price"))); %> required>
+					min=<% out.println(rs.getString("curPrice")); %>" value=<% out.println((rs.getString("curPrice"))); %> required>
 				</div>
 				<div>
-					<input type="submit" class="btn btn-success btn-lg btn-block">
+					<input type="submit" class="btn btn-primary btn-lg btn-block">
 				</div>
 			</form>
-			<br>
-			<div class="item-details">
-				<h4>Description</h4>
-				<p id="iDesc"><% out.println(rs.getString("description")); %></p>
+			
+			<div>
 			</div>
+
 			<div>
 				<h4>Bidding History</h4>
 				<table class="table table-hover" id="bHistory">
@@ -79,13 +79,19 @@
 					</tbody>
 				</table>
 			</div>
+			<%
+				rs = stat.executeQuery("SELECT itemOwner FROM items WHERE name=\""+ itemName + "\"");
+
+				rs.next();
+				if(uName.equals(rs.getString("itemOwner"))) {
+					out.println("<a href=\"itemEdit.jsp?item=" + itemName + "\"><button class=\"btn btn-primary\">Edit Item</button></a>");
+				}
+
+				rs.close();
+				conn.close();
+			%>
 		</div>
-
-		<% 
-			rs.close();
-			conn.close();
-		%>
-
+		
 		<%@ include file="footer.html" %>
 	</body>
 

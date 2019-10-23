@@ -11,7 +11,7 @@
 	</head>
 	
 	<body>
-     <%@ include file="header.html" %>
+     <%@ include file="header.jsp" %>
 	 <h1>BJM Bids Register Form</h1>
 		
 	<div class="form-style-2">

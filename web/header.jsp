@@ -1,3 +1,4 @@
+<%@ page contentType="text/html" %>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="home.jsp">BJM Bids</a>
@@ -15,8 +16,16 @@
                 </li>
             </ul>
             <ul class="navbar-nav my-2 my-lg-0">
-                <li class="nav-item active"><a class="nav-link" href="register.jsp">Register</a></li>
-                <li class="nav-item active"><a class="nav-link" href="login.jsp">Login</a></li>
+            <%
+                String uName = (String)session.getAttribute("uname");
+                if(uName != null || uName != "") {
+                    out.println("<li class=\"nav-item active\"><a class=\"nav-link\">Welcome " + uName + "</a></li>");
+                    out.println("<li class=\"nav-item active\"><a class=\"nav-link\" href=\"logout.jsp\">Logout</a></li>");
+                } else {
+                    out.println("<li class=\"nav-item active\"><a class=\"nav-link\" href=\"register.jsp\">Register</a></li>");
+                    out.println("<li class=\"nav-item active\"><a class=\"nav-link\" href=\"login.jsp\">Login</a></li>");
+                }
+            %>
             </ul>
         </div>
     </nav>

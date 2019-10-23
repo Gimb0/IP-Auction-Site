@@ -9,7 +9,7 @@
   <body>
 	<title>BJM Bids</title>
 	<header>
-     <%@ include file="header.html" %>
+     <%@ include file="header.jsp" %>
 	</header>
 	
 	
