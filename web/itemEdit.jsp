@@ -2,6 +2,13 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="org.sqlite.*" %>
 
+<%
+	String uName = (String) session.getAttribute("uname");
+	if(uName == null || uName == "") {
+		response.sendRedirect("index.jsp");
+	}
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -25,44 +32,54 @@
 			<h2>Create/Edit - Item listing</h2>
 		</div>
 
-		<form id="form" action="itemSave.jsp" method="post">
+		<form id="form" action="itemSave.jsp" method="POST" enctype="multipart/form-data">
 			<div class="custom-file form-group">
 				<label for="imgURL" id="files-label" class="custom-file-label">Please attach an IMG file</label>
-				<input type="file" name="imgURL" id="imgURL" class="custom-file-input form-control">
+				<input type="file" name="imgURL" id="img" class="custom-file-input form-control" size="50">
 			</div>
 
 			<div class="form-group">
 				<label for="iName">Product Name:</label>
-				<input type="text" name="iName" id="iName" class="form-control" placeholder="Kambrook Toaster" required>
+				<input type="text" name="iName" id="iName" class="form-control" required>
 			</div>
 
 			<div class="form-group">
 				<label for="location">Location:</label>
-				<input type="text" name="location" id="location" class="form-control" placeholder="Kambrook Toaster" required>
+				<input type="text" name="location" id="location" class="form-control" required>
 			</div>
 
 			<div class="form-group">
 				<label for="lPrice">Enter the listing price</label>
-				<input type="number" name="lPrice" id="lPrice" class="form-control" placeholder="0.00" min="0.00"
+				<input type="number" name="lPrice" id="lPrice" class="form-control" min="1.00"
 					max="10000.00" step="0.01" required>
 			</div>
 
 			<div class="form-group">
 				<label for="cDate">Select closing date:</label>
-				<input type="date" name="cDate" id="cDate" class="form-control" value="2018-01-01" min="2018-01-01"
-					max="2018-01-01" required>
+				<input type="date" name="cDate" id="cDate" class="form-control" value="2018-01-01" required>
 			</div>
 
-			<div>
+			<div class="form-group">
 				<label for="iCat">Select a product category:</label>
-				<select name="iCat" id="iCat" class="custom-select form-control">
-					<option selected disabled>Please Select</option>
-					<option value="1">Computer</option>
-					<option value="2">Kitchen</option>
-					<option value="3">Vehicle</option>
-				</select>
-			</div>
+				<input class="form-control" id=iCat type="text" list="categories" placeholder="Double click for list of options"/>
+				<datalist id="categories">
+					<%
+						Class.forName("org.sqlite.JDBC");
+						Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
 
+						Statement stat = conn.createStatement();
+
+						ResultSet rs = stat.executeQuery("SELECT category FROM items;");
+						
+						while(rs.next()) {
+							out.println("<option>" + rs.getString("category") + "</option>");
+						}
+
+						rs.close();
+						conn.close();
+					%>
+				</datalist>
+			</div>
 			<div class="form-group">
 				<label for="iDesc">Include a product description:</label>
 				<textarea class="form-control" name="iDesc" id="iDesc" rows="3"
@@ -75,7 +92,7 @@
 			</div>	
 		</form>
 		
-
+	</div>
 	<%@ include file="footer.html" %>
 
 </body>

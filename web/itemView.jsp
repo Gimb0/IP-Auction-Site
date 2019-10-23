@@ -20,11 +20,11 @@
 		<br>
 
 		<div class="container card">
-			<div>
+			<div class="item-details">
 				<%
 					String itemName = request.getParameter("item");
 					Class.forName("org.sqlite.JDBC");
-					Connection conn = DriverManager.getConnection("jdbc:sqlite:/xampp/tomcat/webapps/IP-Auction-Site/ip-auction.db");
+					Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
 
 					Statement stat = conn.createStatement();
 
@@ -38,7 +38,7 @@
 					
 				%>
 			</div>
-			<form action="addBid.jsp" method="POST">
+			<form action="addBid.jsp" method="POST" class="item-details">
 				<div>
 					<input type="hidden" value="<% out.println(itemName); %>">
 					<label for="bid" class="font-weight-bold">Enter an amount to bid</label>
@@ -49,7 +49,8 @@
 					<input type="submit" class="btn btn-success btn-lg btn-block">
 				</div>
 			</form>
-			<div>
+			<br>
+			<div class="item-details">
 				<h4>Description</h4>
 				<p id="iDesc"><% out.println(rs.getString("description")); %></p>
 			</div>

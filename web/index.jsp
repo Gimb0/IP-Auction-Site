@@ -30,7 +30,7 @@
 
                                 Statement stat = conn.createStatement();
 
-                                ResultSet rs = stat.executeQuery("SELECT category FROM ITEMS;");
+                                ResultSet rs = stat.executeQuery("SELECT category FROM items;");
 
                                 while (rs.next()) {
                                     out.println("<option value=\"" + rs.getString("category") + "\">" + rs.getString("category") + "</option>");
