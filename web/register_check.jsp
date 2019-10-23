@@ -11,29 +11,44 @@
 	<body> 
 	
 	 <% 
-		String vName = request.getParameter("name");
-		String vUname = request.getParameter("uname");
-		String vPasswd = request.getParameter("passwd");
-		String vEmail = request.getParameter("email");
+		String name = request.getParameter("name");
+		String uname = request.getParameter("uname");
+		String passwd = request.getParameter("passwd");
+		String email = request.getParameter("email");
 		
-		if(vName.isEmpty() || vUname.isEmpty() || vPasswd.isEmpty() || vEmail.isEmpty())
+		if(name.isEmpty() || uname.isEmpty() || passwd.isEmpty() || email.isEmpty())
 		{
-			session.setAttribute("error", "ERROR");
-			response.sendRedirect(request.getContextPath() + "home.jsp");
+			if(name.isEmpty())
+				session.setAttribute("nameError", "Name Required");
+			if(uname.isEmpty())
+				session.setAttribute("uNameError", "Username Required");
+			if(passwd.isEmpty())
+				session.setAttribute("passwordError", "Password Required");
+			if(email.isEmpty())
+				session.setAttribute("emailError", "Email Required");
+			
+			response.sendRedirect("register.jsp");
 		}
 		else
 		{
 			try {
 				Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
 				Statement stat = conn.createStatement();
-				int insertStat = stat.executeUpdate("INSERT INTO users (email, username, name, password) VALUES (\"" + vEmail + "\", \"" + vUname + "\", \"" + vName + "\", \"" + vPasswd + "\");");
+				int insertStat = stat.executeUpdate("INSERT INTO users (email, username, name, password) VALUES (\"" + email + "\", \"" + uname + "\", \"" + name + "\", \"" + passwd + "\");");
 				conn.close();
-				session.setAttribute("error", null);
-				session.setAttribute("uname", vUname);
 				response.sendRedirect("index.jsp");
 			} catch(SQLiteException e) {
-				response.sendRedirect("register.jsp?fail=exists");
+				session.setAttribute("userExists", "Unique Email Required. User with this email already exists.");
+				response.sendRedirect("register.jsp");
 			}
+			session.setAttribute("nameError", null);
+			session.setAttribute("uNameError", null);
+			session.setAttribute("passwordError", null);
+			session.setAttribute("emailError", null);
+			session.setAttribute("userExists", null);
+			
+			response.sendRedirect("register.jsp");
+			
 		}
 	 %>
 		
