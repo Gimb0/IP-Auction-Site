@@ -71,7 +71,7 @@
 
 							while(rs.next()) {
 								out.println("<tr>");
-									out.println("<td>" + (String)rs.getDate("date") + "</td>");
+									out.println("<td>" + rs.getDate("date") + "</td>");
 									out.println("<td>" + rs.getString("username") + "</td>");
 									out.println("<td>" + rs.getString("price") + "</td>");
 								out.println("</tr>");
