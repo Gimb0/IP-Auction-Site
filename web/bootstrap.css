@@ -4328,7 +4328,7 @@ input[type="button"].btn-block {
 }
 
 .nav-link:hover, .nav-link:focus {
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .nav-link.disabled {
@@ -4450,7 +4450,7 @@ input[type="button"].btn-block {
 }
 
 .navbar-brand:hover, .navbar-brand:focus {
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .navbar-nav {
