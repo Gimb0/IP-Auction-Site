@@ -4,8 +4,8 @@
 
 <html> 
 	<head> 
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-		<title>JSP Page</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+	<title>JSP Page</title> 
 	</head> 
 	
 	<body> 
@@ -32,7 +32,7 @@
 		else
 		{
 			try {
-				Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+				Connection conn = DriverManager.getConnection("jdbc:sqlite:/xampp/tomcat/webapps/jsptut/ip-auction.db");
 				Statement stat = conn.createStatement();
 				int insertStat = stat.executeUpdate("INSERT INTO users (email, username, name, password) VALUES (\"" + email + "\", \"" + uname + "\", \"" + name + "\", \"" + passwd + "\");");
 				conn.close();
@@ -41,6 +41,7 @@
 				session.setAttribute("userExists", "Unique Email Required. User with this email already exists.");
 				response.sendRedirect("register.jsp");
 			}
+			
 		}
 	 %>
 		

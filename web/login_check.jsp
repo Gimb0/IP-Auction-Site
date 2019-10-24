@@ -28,7 +28,7 @@
 		else
 		{
 			try {
-				Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+				Connection conn = DriverManager.getConnection("jdbc:sqlite:/xampp/tomcat/webapps/jsptut/ip-auction.db");
 				Statement stat = conn.createStatement();    
 				ResultSet rs = stat.executeQuery("SELECT email, password FROM users where email = \"" + email + "\");");
 				
@@ -48,10 +48,6 @@
 				session.setAttribute("noUserExists", "No user found with this email.");
 				response.sendRedirect("register.jsp");
 			};
-			session.setAttribute("uNameError", null);
-			session.setAttribute("passwordError", null);
-			
-			response.sendRedirect("login_success.jsp");
 		}
 			
 		%> 
