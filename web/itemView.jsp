@@ -52,7 +52,7 @@
 					
 				%>
 			</div>
-            <% if ((currentDate.before(startDate)) || (currentDate.after(endDate))) { %>
+            <% if ((currentDate.after(startDate) || (currentDate.equals(startDate)) && (currentDate.before(endDate)))) { %>
 			<form action="addBid.jsp?item=<%= rs.getString("name") %>" method="POST" class="item-details">
 				<div>
 					<input type="hidden" value="<%= itemName %>">
@@ -72,7 +72,7 @@
 			<div class="item-details">
 				<h4>Description</h4>
 				<p class=""><% out.println(rs.getString("description"));%></p>
-						<h3 style="text-align:center; color:red;" >Listing Expired</h3>			
+						<h3 style="text-align:center; color:red;" >This listing is either not available ot has expired.</h3>			
 			</div>
 			<% } %>
 			
