@@ -28,7 +28,7 @@
                         <select class="custom-select" name="category">
                             <%
                                 Class.forName("org.sqlite.JDBC");
-                                Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+                                Connection conn = DriverManager.getConnection("jdbc:sqlite:/xampp/tomcat/webapps/jsptut/ip-auction.db");
 
                                 Statement stat = conn.createStatement();
 
@@ -111,13 +111,6 @@
                 conn.close();
             %>
             <br>
-			
-        <%  
-			Date today = Calendar.getInstance().getTime();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss");
-			String folderName = formatter.format(today);
-			out.println("Folder Name = " + folderName);
-		%>
             <br>
         </main>
 		

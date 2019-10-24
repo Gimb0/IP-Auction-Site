@@ -38,7 +38,7 @@
 					conn.close();
 					response.sendRedirect("index.jsp");
 				} else {
-					session.setAttribute("noUserExists", "Invalid email or password");
+					session.setAttribute("noUserExists", "Invalid  or password");
 					response.sendRedirect("login.jsp");
 				}
 			} catch (Exception e) {
