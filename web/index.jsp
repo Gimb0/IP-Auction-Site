@@ -43,10 +43,11 @@
                 </fieldset>
                 <fieldset class="form-group">
                     <legend>Location</legend>
-                    <select class="custom-select">
+                    <select class="custom-select" name="location">
                         <%
                             rs = stat.executeQuery("SELECT location FROM ITEMS;");
-
+                            
+                            out.println("<option value='*'>Anywhere</option>");
                             while (rs.next()) {
                                 out.println("<option value=\"" + rs.getString("location") + "\">" + rs.getString("location") + "</option>");
                             }
@@ -73,11 +74,15 @@
                 if(catFilter != null) {
                     queryFilter += " category = \"" + catFilter + "\"";
                     if(locFilter != null) {
-                        queryFilter += "AND location = \"" + locFilter + "\"";
+                        if(!locFilter.equals("*")) {
+                            queryFilter += "AND location = \"" + locFilter + "\"";
+                        }
                     }
                 }
                 else if(locFilter != null) {
-                    queryFilter += " location = \"" + locFilter + "\"";
+                    if(!locFilter.equals("*")) {
+                        queryFilter += " location = \"" + locFilter + "\"";
+                    }
                 } else {
                     queryFilter = "";
                 }
@@ -85,23 +90,29 @@
                 
                 rs = stat.executeQuery("SELECT filename, name, curPrice, endDate FROM ITEMS" + queryFilter);
 
-                try {
-                    while (rs.next()) {
-                        out.println("<section class=\"item-row\">");
-                        for(int i = 0; i < 2; i++) {
-                            out.println("<div class=\"item-col\">");
-                            out.println("<div class=\"itemImg\">");
-                            out.println("<img src=\"../assets/" + rs.getString("filename") + "\" onerror=this.src='../assets/alt.jpg'>");
-                            out.println("</div>");
-                            out.println("<div class=\"itemDetails\">");
-                            out.println("<a href=\"itemView.jsp?item=" + rs.getString("name") + "\">" + rs.getString("name") + "</a>");
-                            out.println("<p>" + rs.getString("curPrice") + "</p>");
-                            out.println("<p>" + rs.getString("endDate") + "</p>");
-                            out.println("</div>");
-                            out.println("</div>");
-                            rs.next();
+                try { %>
+                    <% while (rs.next()) { %>
+                        <div class="item-row">
+                        <% for(int i = 0; i < 2; i++) { 
+                            if(rs.isAfterLast()) {
+                                break;
+                            }%>
+                            <div class="item-col">
+                                <div class="itemImg">
+                                    <img src="../assets/<%= rs.getString("filename") %>" onerror=this.src='../assets/alt.jpg'>
+                                </div>
+                                <div class="itemDetails">
+                                    <a href="itemView.jsp?item= <%= rs.getString("name") %> "> <%= rs.getString("name") %> </a>
+                                    <p>Current Bid: $<%= rs.getString("curPrice") %></p>
+                                    <p>End Bid Date: <%= rs.getString("endDate") %></p>
+                                </div>
+                            </div>
+                            <%
+                            if(i == 0) {
+                                rs.next();
+                            }
                         }
-                        out.println("</section>");
+                        out.println("</div>");
                     }
                 } catch (Exception e) {
 
