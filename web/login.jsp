@@ -10,7 +10,8 @@
 	<body>
 	
      <%@ include file="header.jsp" %>
-	 
+	 <br>
+	 <br>
 	<h1>BJM Bids Login Form</h1>
 	
 	<div class="form-style-2">
