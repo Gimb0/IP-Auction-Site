@@ -27,7 +27,7 @@
 				<%
 					String itemName = request.getParameter("item");
 					Class.forName("org.sqlite.JDBC");
-					Connection conn = DriverManager.getConnection("jdbc:sqlite:/xampp/tomcat/webapps/jsptut/ip-auction.db");
+					Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
 
 					Statement stat = conn.createStatement();
 
@@ -44,7 +44,7 @@
 					System.out.println("endDate : " + sdf.format(endDate));
 
 					rs.next();
-					out.println("<img src=\"../assets/" + rs.getString("filename") + "\" height=\"250px\" width=\"250px\" style=\"float:right\">");
+					out.println("<img src=\"../assets/" + rs.getString("filename") + "\" onerror=this.src='../assets/alt.jpg' height=\"250px\" width=\"250px\" style=\"float:right\">");
 					out.println("<h1 name=\"iName\" id=\"iName\"><strong>" + rs.getString("name") + "</strong></h1>");
 					out.println("<h4 name=\"cDate\" id=\"cDate\">Closing on: " + rs.getString("endDate") + "</h4>");
 					Double price = rs.getDouble("curPrice") + 1.00;
@@ -57,7 +57,7 @@
 				<div>
 					<input type="hidden" value="<% out.println(itemName); %>">
 					
-					<% if (currentDate.compareTo(endDate) < 0) { %>
+					<% if (currentDate.compareTo(startDate) < 0 && currentDate.compareTo(endDate) < 0) { %>
 					
 					<%uName = (String)session.getAttribute("uname");
 					  if(uName != null && uName != "") { %>
