@@ -25,14 +25,23 @@
 
 		String itemName = request.getParameter("item");
 		Class.forName("org.sqlite.JDBC");
-		Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:/xampp/tomcat/webapps/jsptut/ip-auction.db");
 
 		Statement stat = conn.createStatement();
 
-		ResultSet rs = stat.executeQuery("SELECT description, category, location, startPrice, endDate FROM items WHERE name=\"" + itemName + "\"");
-
+		ResultSet rs = stat.executeQuery("SELECT description, category, location, startPrice, curPrice, endDate FROM items WHERE name=\"" + itemName + "\"");
+		
 		rs.next();
-		String description = rs.getString("description");
+			String priceEdit="";
+			String location = rs.getString("location");
+			Double startPrice = rs.getDouble("startPrice");
+			Double curPrice = rs.getDouble("curPrice");
+			String closeDate = rs.getString("endDate");
+			String description = rs.getString("description");
+			if(curPrice>startPrice){
+				priceEdit="disabled";
+			}
+		
 	%>
 
 	<br>
@@ -51,17 +60,17 @@
 
 			<div class="form-group">
 				<label for="location">Location:</label>
-				<input type="text" name="location" id="location" class="form-control" value="<% out.println(rs.getString("location")); %>" required>
+				<input type="text" name="location" id="location" class="form-control" value="<% out.println(location); %>" required>
 			</div>
 
 			<div class="form-group">
 				<label for="lPrice">Enter the listing price</label>
-				<input type="number" name="lPrice" id="lPrice" class="form-control" value="<%= rs.getDouble("startPrice") %>" required>
+				<input type="number" name="lPrice" id="lPrice" class="form-control" min="1.00" step="1.00" value="<% out.println(startPrice); %>" required <% out.println(priceEdit); %>>
 			</div>
 
 			<div class="form-group">
 				<label for="cDate">Select closing date:</label>
-				<input type="date" name="cDate" id="cDate" class="form-control" value="<%= rs.getString("endDate") %>" required>
+				<input type="date" name="cDate" id="cDate" class="form-control" value="<% out.println(closeDate); %>" required>
 			</div>
 
 			<div class="form-group">
