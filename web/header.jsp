@@ -18,7 +18,7 @@
             <ul class="navbar-nav my-2 my-lg-0">
             <%
                 String uName = (String)session.getAttribute("uname");
-                if(uName != null || uName != "") {
+                if(uName != null) {
                     out.println("<li class=\"nav-item active\"><a class=\"nav-link\">Welcome " + uName + "</a></li>");
                     out.println("<li class=\"nav-item active\"><a class=\"nav-link\" href=\"logout.jsp\">Logout</a></li>");
                 } else {
