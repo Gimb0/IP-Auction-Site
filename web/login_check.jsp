@@ -40,13 +40,13 @@
 					}
 					else {
 						session.setAttribute("noUserExists", "No user found with this email.");
-						response.sendRedirect("register.jsp");
+						response.sendRedirect("login.jsp");
 					}
 				}
 				
 			} catch(SQLiteException e) {
 				session.setAttribute("noUserExists", "No user found with this email.");
-				response.sendRedirect("register.jsp");
+				response.sendRedirect("login.jsp");
 			};
 		}
 			
