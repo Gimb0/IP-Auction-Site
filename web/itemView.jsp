@@ -1,6 +1,9 @@
 <%@ page contentType="text/html" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="org.sqlite.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.util.Date" %>
+<%@page import="java.text.SimpleDateFormat" %> 
 
 <!DOCTYPE html>
 <html>
@@ -28,38 +31,51 @@
 
 					Statement stat = conn.createStatement();
 
-					ResultSet rs = stat.executeQuery("SELECT filename, name, endDate, curPrice, description FROM items WHERE name=\"" + itemName + "\"");
+					ResultSet rs = stat.executeQuery("SELECT filename, name, endDate, startDate, curPrice, description, itemOwner FROM items WHERE name = \"" + itemName + "\";");
 					
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					Date date = Calendar.getInstance().getTime();   
+					String strDate = sdf.format(date);
+					Date currentDate = sdf.parse(strDate);
+					
+					Date endDate = sdf.parse(rs.getString("endDate"));
+					Date startDate = sdf.parse(rs.getString("startDate"));
 
 					rs.next();
 					out.println("<img src=\"../assets/" + rs.getString("filename") + "\" height=\"250px\" width=\"250px\" style=\"float:right\">");
 					out.println("<h1 name=\"iName\" id=\"iName\"><strong>" + rs.getString("name") + "</strong></h1>");
-					out.println("<h4 name=\"cDate\" id=\"cDate\">Closing on: " + rs.getString("endDate") + "</h3>");
-					out.println("<h4 name=\"lPrice\" id=\"lPrice\">" + rs.getString("curPrice") +"</h3>");
+					out.println("<h4 name=\"cDate\" id=\"cDate\">Closing on: " + rs.getString("endDate") + "</h4>");
+					Double price = rs.getDouble("curPrice") + 1.00;
+					out.println("<h4 name=\"lPrice\" id=\"lPrice\">Current Bid: $" + rs.getDouble("curPrice") +"</h4>");
+					out.println("<h4 name=\"itemOwner\" id=\"itemOwner\">Vendor: " + rs.getString("itemOwner") +"</h4>");
 					
 				%>
 			</div>
 			<form action="addBid.jsp?item=<% out.println(rs.getString("name")); %>" method="POST" class="item-details">
 				<div>
 					<input type="hidden" value="<% out.println(itemName); %>">
+					
+					<% if ((currentDate.compareTo(startDate) < 0) || (currentDate.compareTo(endDate) > 0)) { %>
+					
 					<%uName = (String)session.getAttribute("uname");
 					  if(uName != null && uName != "") { %>
 						<label for="bid" class="font-weight-bold">Enter an amount to bid</label>
 						<input type="number" name="bid" id="bid" class="form-control" 
-						min=<% out.println(rs.getString("curPrice")); %> value=<% out.println(rs.getString("curPrice")); %> required>
-					  
+						min=<% out.println(price); %> value="<%= rs.getDouble("curPrice") %>" required>
 				</div>
 				<div>
-					<input type="submit" class="btn btn-primary btn-lg btn-block">
-					<% }%>
+					<input type="submit" value="Enter Bid" class="btn btn-primary btn-lg btn-block">
+					 <% } %> 
 				</div>
 			</form>
-			
+			<% } else {%>
 			<div class="item-details">
 				<h4>Description</h4>
 				<p class=""><% out.println(rs.getString("description"));%></p>
+						<h3 style="text-align:center; color:red;" >Listing Expired</h3>			
 			</div>
-
+			<% } %>
+			
 			<div>
 				<h4>Bidding History</h4>
 				<table class="table table-hover" id="bHistory">
@@ -97,6 +113,7 @@
 
 				rs.close();
 				conn.close();
+				
 			%>
 		</div>
 		
