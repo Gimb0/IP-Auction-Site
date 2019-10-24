@@ -24,7 +24,7 @@
 				<%
 					String itemName = request.getParameter("item");
 					Class.forName("org.sqlite.JDBC");
-					Connection conn = DriverManager.getConnection("jdbc:sqlite:/xampp/tomcat/webapps/jsptut/ip-auction.db");
+					Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
 
 					Statement stat = conn.createStatement();
 
@@ -56,7 +56,7 @@
 			
 			<div class="item-details">
 				<h4>Description</h4>
-				<p class=""
+				<p class=""><% out.println(rs.getString("description"));%></p>
 			</div>
 
 			<div>
@@ -71,11 +71,11 @@
 						<tr>
 						<%
 							rs.close();
-							rs = stat.executeQuery("SELECT username, price, time FROM bidhistory WHERE itemName=\""+ itemName + "\"");
+							rs = stat.executeQuery("SELECT username, price, date FROM bidhistory WHERE itemName=\""+ itemName + "\"");
 
 							while(rs.next()) {
 								out.println("<tr>");
-									out.println("<td>" + rs.getDate("date") + "</td>");
+									out.println("<td>" + rs.getString("date") + "</td>");
 									out.println("<td>" + rs.getString("username") + "</td>");
 									out.println("<td>" + rs.getString("price") + "</td>");
 								out.println("</tr>");

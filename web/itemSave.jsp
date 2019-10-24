@@ -4,7 +4,7 @@
 <%@ page import="org.sqlite.*" %>
 
 <% 
-	String edit = (boolean)request.getParameter("edit");
+	Boolean edit = (boolean)request.getParameter("edit");
 	String uName = (String)session.getAttribute("uname");
 	String name = request.getParameter("iName");
 	String description = request.getParameter("iDesc");
