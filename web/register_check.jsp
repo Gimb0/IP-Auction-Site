@@ -4,8 +4,8 @@
 
 <html> 
 	<head> 
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-	<title>JSP Page</title> 
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+		<title>JSP Page</title>
 	</head> 
 	
 	<body> 
@@ -41,14 +41,6 @@
 				session.setAttribute("userExists", "Unique Email Required. User with this email already exists.");
 				response.sendRedirect("register.jsp");
 			}
-			session.setAttribute("nameError", null);
-			session.setAttribute("uNameError", null);
-			session.setAttribute("passwordError", null);
-			session.setAttribute("emailError", null);
-			session.setAttribute("userExists", null);
-			
-			response.sendRedirect("register.jsp");
-			
 		}
 	 %>
 		

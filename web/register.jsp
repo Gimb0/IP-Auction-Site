@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -12,6 +11,8 @@
 	
 	<body>
      <%@ include file="header.jsp" %>
+	 <br>
+	 <br>
 	 <h1>BJM Bids Register Form</h1>
 		
 	<div class="form-style-2">
@@ -28,7 +29,7 @@
 		<br><br><br><br>
 	<% } %>
 	
-	<form action="register_check.jsp" method="post">
+	<form action="register_check.jsp" method="POST">
 				
 		
 		<%
