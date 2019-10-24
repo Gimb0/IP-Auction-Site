@@ -29,13 +29,18 @@
 
 		Statement stat = conn.createStatement();
 
-		ResultSet rs = stat.executeQuery("SELECT description, category, location, startPrice, endDate FROM items WHERE name=\"" + itemName + "\"");
+		ResultSet rs = stat.executeQuery("SELECT description, category, location, startPrice, curPrice, endDate FROM items WHERE name=\"" + itemName + "\"");
 		
 		rs.next();
+			String priceEdit="";
 			String location = rs.getString("location");
 			Double startPrice = rs.getDouble("startPrice");
+			Double curPrice = rs.getDouble("curPrice");
 			String closeDate = rs.getString("endDate");
 			String description = rs.getString("description");
+			if(curPrice>startPrice){
+				priceEdit="disabled";
+			}
 		
 	%>
 
@@ -60,7 +65,7 @@
 
 			<div class="form-group">
 				<label for="lPrice">Enter the listing price</label>
-				<input type="number" name="lPrice" id="lPrice" class="form-control" min="1.00" step="0.01" value="<% out.println(startPrice); %>" required>
+				<input type="number" name="lPrice" id="lPrice" class="form-control" min="1.00" step="1.00" value="<% out.println(startPrice); %>" required <% out.println(priceEdit); %>>
 			</div>
 
 			<div class="form-group">

@@ -31,7 +31,7 @@
 	ResultSet rs = stat.executeQuery("SELECT name FROM items WHERE name = '" + name + "'");
 
 	if(rs.next()) {
-		int insertStat = stat.executeUpdate("UPDATE items SET description = '" + description + "', category = '" + category + "', location = '" + location + "', startPrice = '" + price + "', endDate = '" + endDate + "' WHERE name = '" + name + "';");
+		int insertStat = stat.executeUpdate("UPDATE items SET description = '" + description + "', category = '" + category + "', location = '" + location + "', curPrice = '" + price + "', endDate = '" + endDate + "' WHERE name = '" + name + "';");
 	} else {
 		int updateStat = stat.executeUpdate("INSERT INTO items (name, description, category, location, filename, startPrice, curPrice, startDate, endDate, itemOwner) VALUES (\"" + name + "\",\"" + description + "\",\"" + category + "\",\"" + location + "\",\"" + img + "\",\"" + price + "\",\"" + price + "\",\"" + startDate + "\",\"" + endDate + "\", \"" + uName + "\");");
 	}
