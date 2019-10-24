@@ -113,10 +113,6 @@
             <br>
             <br>
         </main>
-		
-        <footer>
-            <%@ include file="footer.html" %>
-        </footer>
     </body>
         
     <script>

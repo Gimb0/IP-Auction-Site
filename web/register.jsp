@@ -69,8 +69,6 @@
 	 session.removeAttribute("passwordError");
 	 session.removeAttribute("emailError"); 
 	 session.removeAttribute("userExists");%>
-	 
-     <%@ include file="footer.html" %>
 	</body>
 </html>
 
