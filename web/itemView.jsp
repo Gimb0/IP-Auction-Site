@@ -32,7 +32,7 @@
 					
 
 					rs.next();
-					out.println("<img src=\"../assets/" + rs.getString("filename") + "\" height=\"250px\" width=\"250px\" style=\"float:right\">");
+					out.println("<img src=\"../assets/" + rs.getString("filename") + "\" onerror=this.src='../assets/alt.jpg' height=\"250px\" width=\"250px\" style=\"float:right\">");
 					out.println("<h1 name=\"iName\" id=\"iName\"><strong>" + rs.getString("name") + "</strong></h1>");
 					out.println("<h4 name=\"cDate\" id=\"cDate\">Closing on: " + rs.getString("endDate") + "</h3>");
 					out.println("<h4 name=\"lPrice\" id=\"lPrice\">" + rs.getString("curPrice") +"</h3>");
@@ -53,7 +53,7 @@
 			
 			<div class="item-details">
 				<h4>Description</h4>
-				<p class=""
+				<p class=""><% out.println(rs.getString("description")); %></p>
 			</div>
 
 			<div>
@@ -65,14 +65,13 @@
 						<th>Amount</th>
 					</thead>
 					<tbody>
-						<tr>
 						<%
 							rs.close();
-							rs = stat.executeQuery("SELECT username, price, time FROM bidhistory WHERE itemName=\""+ itemName + "\"");
+							rs = stat.executeQuery("SELECT username, price, date FROM bidhistory WHERE itemName=\""+ itemName + "\"");
 
 							while(rs.next()) {
 								out.println("<tr>");
-									out.println("<td>" + rs.getString("time") + "</td>");
+									out.println("<td>" + (String)rs.getDate("date") + "</td>");
 									out.println("<td>" + rs.getString("username") + "</td>");
 									out.println("<td>" + rs.getString("price") + "</td>");
 								out.println("</tr>");
@@ -93,7 +92,6 @@
 				conn.close();
 			%>
 		</div>
-		
 		<%@ include file="footer.html" %>
 	</body>
 

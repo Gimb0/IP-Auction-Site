@@ -33,6 +33,7 @@
 		</div>
 
 		<form id="form" action="itemSave.jsp" method="POST">
+			<% request.setAttribute("edit", false); %>
 			<div class="custom-file form-group">
 				<label for="imgURL" id="files-label" class="custom-file-label">Please attach an IMG file</label>
 				<input type="file" name="imgURL" id="img" class="custom-file-input form-control" size="50">

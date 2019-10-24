@@ -13,25 +13,26 @@ CREATE TABLE items (
     category TEXT,
     location TEXT,
     filename TEXT NOT NULL,
-    startPrice REAL NOT NULL,
-    curPrice REAL NOT NULL,
-    endDate TEXT NOT NULL,
+    startPrice DOUBLE NOT NULL,
+    curPrice DOUBLE NOT NULL,
+    startDate DATE NOT NULL,
+    endDate DATE NOT NULL,
     itemOwner TEXT NOT NULL,
     FOREIGN KEY (itemOwner) REFERENCES users(username)
 );
 
 CREATE TABLE bidhistory (
-    itemName TEXT PRIMARY KEY,
+    itemName TEXT,
     username TEXT NOT NULL,
     price TEXT NOT NULL,
-    time TEXT
+    date DATE NOT NULL
 );
 
 INSERT INTO users (email, username, name, password) VALUES ("m.abdo@yahoo.com", "xxx_abdo", "Michael Abdo", "SpringWater");
 INSERT INTO users (email, username, name, password) VALUES ("j.dib@msn.com", "xxx_dib", "Joshua Dib", "HpLaptop");
 INSERT INTO users (email, username, name, password) VALUES ("gimbo@gimboscloud.com", "gimbo", "Brad Gimbo", "N-O-D-E");
 
-INSERT INTO items (name, description, category, location, filename, startPrice, curPrice, endDate, itemOwner) VALUES ("MetaBox Laptop", "Laptop that breaks", "Computers/Laptops", "Sydney", "unknown0.jpg", 1500, 1500, "7/11/2019", "xxx_abdo");
-INSERT INTO items (name, description, category, location, filename, startPrice, curPrice, endDate, itemOwner) VALUES ("ESP8266", "TCP/IP stacked circuit", "IOT", "QLD", "unknown1.jpg", 25, 25, "18/11/2019", "gimbo");
+INSERT INTO items (name, description, category, location, filename, startPrice, curPrice, startDate, endDate, itemOwner) VALUES ("MetaBox Laptop", "Laptop that breaks", "Computers/Laptops", "Sydney", "unknown0.jpg", 1500, 1500, '2019/11/2', '2019/11/10', "xxx_abdo");
+INSERT INTO items (name, description, category, location, filename, startPrice, curPrice, startdate, endDate, itemOwner) VALUES ("ESP8266", "TCP/IP stacked circuit", "IOT", "QLD", "unknown1.jpg", 25, 25, '2019/10/26', '2019/10/30', "gimbo");
 
-INSERT INTO bidhistory (itemName, username, price, time) VALUES ("MetaBox Laptop", "xxx_abdo", 1500, "6/11/2019");
+INSERT INTO bidhistory (itemName, username, price, date) VALUES ("MetaBox Laptop", "xxx_abdo", 1500, '2019/10/23');

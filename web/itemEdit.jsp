@@ -22,6 +22,17 @@
 		if(uName == null || uName == "") {
 			response.sendRedirect("index.jsp");
 		}
+
+		String itemName = request.getParameter("item");
+		Class.forName("org.sqlite.JDBC");
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+
+		Statement stat = conn.createStatement();
+
+		ResultSet rs = stat.executeQuery("SELECT description, category, location, startPrice, endDate FROM items WHERE name=\"" + itemName + "\"");
+
+		rs.next();
+		String description = rs.getString("description");
 	%>
 
 	<br>
@@ -33,42 +44,32 @@
 		</div>
 
 		<form id="form" action="itemSave.jsp" method="POST">
-			<div class="custom-file form-group">
-				<label for="imgURL" id="files-label" class="custom-file-label">Please attach an IMG file</label>
-				<input type="file" name="imgURL" id="img" class="custom-file-input form-control" size="50">
-			</div>
-
 			<div class="form-group">
 				<label for="iName">Product Name:</label>
-				<input type="text" name="iName" id="iName" class="form-control" required>
+				<input type="text" name="iName" id="iName" class="form-control" value="<% out.println(itemName); %>" required>
 			</div>
 
 			<div class="form-group">
 				<label for="location">Location:</label>
-				<input type="text" name="location" id="location" class="form-control" required>
+				<input type="text" name="location" id="location" class="form-control" value="<% out.println(rs.getString("location")); %>" required>
 			</div>
 
 			<div class="form-group">
 				<label for="lPrice">Enter the listing price</label>
-				<input type="number" name="lPrice" id="lPrice" class="form-control" min="1.00" step="0.01" required>
+				<input type="number" name="lPrice" id="lPrice" class="form-control" min="1.00" step="0.01" value="<% out.println(rs.getDouble("startPrice")); %>" required>
 			</div>
 
 			<div class="form-group">
 				<label for="cDate">Select closing date:</label>
-				<input type="date" name="cDate" id="cDate" class="form-control" value="2018-01-01" required>
+				<input type="date" name="cDate" id="cDate" class="form-control" value="<% out.println(rs.getDate("endDate")); %>" required>
 			</div>
 
 			<div class="form-group">
 				<label for="iCat">Select a product category:</label>
-				<input class="form-control" name="iCat" id="iCat" type="text" list="categories" placeholder="Double click for list of options">
+				<input class="form-control" name="iCat" id="iCat" type="text" list="categories" placeholder="Double click for list of options" value="<% out.println(rs.getString("category")); %>">
 				<datalist id="categories">
 					<%
-						Class.forName("org.sqlite.JDBC");
-						Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
-
-						Statement stat = conn.createStatement();
-
-						ResultSet rs = stat.executeQuery("SELECT DISTINCT category FROM items;");
+						rs = stat.executeQuery("SELECT DISTINCT category FROM items;");
 						
 						while(rs.next()) {
 							out.println("<option>" + rs.getString("category") + "</option>");
@@ -82,7 +83,7 @@
 			<div class="form-group">
 				<label for="iDesc">Include a product description:</label>
 				<textarea class="form-control" name="iDesc" id="iDesc" rows="3"
-					style="margin-top: 0px; margin-bottom: 0px; height: 98px;"></textarea>
+					style="margin-top: 0px; margin-bottom: 0px; height: 98px;"><% out.println(description); %></textarea>
 			</div>
 
 			<br>
