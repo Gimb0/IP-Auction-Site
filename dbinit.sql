@@ -22,10 +22,11 @@ CREATE TABLE items (
 );
 
 CREATE TABLE bidhistory (
+    bidID INTEGER PRIMARY KEY,
     itemName TEXT,
     username TEXT NOT NULL,
     price TEXT NOT NULL,
-    date DATE NOT NULL
+    date TEXT NOT NULL
 );
 
 INSERT INTO users (email, username, name, password) VALUES ("m.abdo@yahoo.com", "xxx_abdo", "Michael Abdo", "SpringWater");
