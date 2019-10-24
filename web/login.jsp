@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -34,10 +32,11 @@
 		item = String.valueOf((String)session.getAttribute("emailError"));		
 		if(item.equals("Email Required")) { %> 
 			<span class="close" data-dismiss="alert" aria-label="close">${emailError}</span>
-		<% } %>
+		<% }	%>
 		<label for="email"><span>Email <span class="required">*</span></span><input type="text" class="input-field" name="email" value="" /></label>
 		
 		<%
+		
 		item = String.valueOf((String)session.getAttribute("passwordError"));		
 		if(item.equals("Password Required")) { %> 
 			<span class="close" data-dismiss="alert" aria-label="close">${passwordError}</span>
