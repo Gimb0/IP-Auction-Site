@@ -58,7 +58,7 @@
         </div>
         <%
             if(uName != "" && uName != null) {
-                out.println("<a href=\"itemCreate.jsp\"><button class=\"btn active\">Create Item</button></a>");
+                out.println("<a style='padding-left:10px;' href=\"itemCreate.jsp\"><button class=\"btn active\">Create Item</button></a>");
             }
         %>
         <main class="auctionItems">
