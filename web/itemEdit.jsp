@@ -76,7 +76,7 @@
 
 			<div class="form-group">
 				<label for="cDate">Select Closing Date</label>
-				<input type="date" name="cDate" id="cDate" class="form-control" value="<% out.println(closeDate); %>" required>
+				<input type="date" name="cDate" id="cDate" class="form-control" value="<%=closeDate %>" required>
 			</div>
 
 			<div class="form-group">

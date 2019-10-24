@@ -102,7 +102,7 @@
                                     <img src="../assets/<%= rs.getString("filename") %>" onerror=this.src='../assets/alt.jpg'>
                                 </div>
                                 <div class="itemDetails">
-                                    <a href="itemView.jsp?item= <%= rs.getString("name") %> "> <%= rs.getString("name") %> </a>
+                                    <a href="itemView.jsp?item=<%= rs.getString("name") %> "> <%= rs.getString("name") %> </a>
                                     <p>Current Bid: $<%= rs.getString("curPrice") %></p>
                                     <p>End Bid Date: <%= rs.getString("endDate") %></p>
                                 </div>
@@ -114,8 +114,8 @@
                         }
                         out.println("</div>");
                     }
-                } catch (Exception e) {
-
+                } catch(Exception e) {
+                    out.println(e);
                 }
 
                 rs.close();
