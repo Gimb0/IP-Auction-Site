@@ -28,26 +28,24 @@
 		else
 		{
 			try {
-				Connection conn = DriverManager.getConnection("jdbc:sqlite:/xampp/tomcat/webapps/jsptut/ip-auction.db");
+				Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
 				Statement stat = conn.createStatement();    
-				ResultSet rs = stat.executeQuery("SELECT email, password FROM users where email = \"" + email + "\");");
+				ResultSet rs = stat.executeQuery("SELECT username FROM users WHERE email = \"" + email + "\" AND password = \"" + passwd + "\"");
 				
-				while (rs.next()) {
-					if (rs.getString("email") != null){
-						//login func
-						conn.close();
-						response.sendRedirect("index.jsp");
-					}
-					else {
-						session.setAttribute("noUserExists", "No user found with this email.");
-						response.sendRedirect("login.jsp");
-					}
+				
+				if (rs.next()) {
+					out.println("rs.nect()");
+					session.setAttribute("uname", rs.getString("username"));
+					conn.close();
+					response.sendRedirect("index.jsp");
+				} else {
+					session.setAttribute("noUserExists", "Invalid email or password");
+					response.sendRedirect("login.jsp");
 				}
+			} catch (Exception e) {
+				session.setAttribute("noUserExists", "Something is broken");
+			}
 				
-			} catch(SQLiteException e) {
-				session.setAttribute("noUserExists", "No user found with this email.");
-				response.sendRedirect("login.jsp");
-			};
 		}
 			
 		%> 

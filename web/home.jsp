@@ -14,8 +14,8 @@
 	
 	
 
-	<footer>
-     <%@ include file="footer.html" %>
-	 </footer>
+	  <footer>
+      <%@ include file="footer.html" %>
+	  </footer>
   </body>
 </html>
