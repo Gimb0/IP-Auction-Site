@@ -28,15 +28,16 @@
 
 					Statement stat = conn.createStatement();
 
-					ResultSet rs = stat.executeQuery("SELECT filename, name, endDate, curPrice, description FROM items WHERE name = \"" + itemName + "\";");
+					ResultSet rs = stat.executeQuery("SELECT filename, name, endDate, curPrice, description, itemOwner FROM items WHERE name = \"" + itemName + "\";");
 					
 
 					rs.next();
 					out.println("<img src=\"../assets/" + rs.getString("filename") + "\" height=\"250px\" width=\"250px\" style=\"float:right\">");
 					out.println("<h1 name=\"iName\" id=\"iName\"><strong>" + rs.getString("name") + "</strong></h1>");
-					out.println("<h4 name=\"cDate\" id=\"cDate\">Closing on: " + rs.getString("endDate") + "</h3>");
+					out.println("<h4 name=\"cDate\" id=\"cDate\">Closing on: " + rs.getString("endDate") + "</h4>");
 					Double price = rs.getDouble("curPrice") + 1.00;
-					out.println("<h4 name=\"lPrice\" id=\"lPrice\">" + rs.getDouble("curPrice") +"</h3>");
+					out.println("<h4 name=\"lPrice\" id=\"lPrice\">Current Bid: $" + rs.getDouble("curPrice") +"</h4>");
+					out.println("<h4 name=\"itemOwner\" id=\"itemOwner\">Vendor: " + rs.getString("itemOwner") +"</h4>");
 					
 				%>
 			</div>
@@ -47,7 +48,7 @@
 					  if(uName != null && uName != "") { %>
 						<label for="bid" class="font-weight-bold">Enter an amount to bid</label>
 						<input type="number" name="bid" id="bid" class="form-control" 
-						min=<% out.println(price); %> value=<% out.println(rs.getString("curPrice")); %> required>
+						min=<% out.println(price); %> value="<%= rs.getDouble("curPrice") %>" required>
 					  
 				</div>
 				<div>

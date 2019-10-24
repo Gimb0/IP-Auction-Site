@@ -10,7 +10,7 @@
 	String itemName = request.getParameter("item");
 
 	Date today = Calendar.getInstance().getTime();
-	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss");
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	String curDate = formatter.format(today);
 
 	

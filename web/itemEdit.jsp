@@ -56,12 +56,12 @@
 
 			<div class="form-group">
 				<label for="lPrice">Enter the listing price</label>
-				<input type="number" name="lPrice" id="lPrice" class="form-control" min="1.00" step="0.01" value="<% out.println(rs.getDouble("startPrice")); %>" required>
+				<input type="number" name="lPrice" id="lPrice" class="form-control" value="<%= rs.getDouble("startPrice") %>" required>
 			</div>
 
 			<div class="form-group">
 				<label for="cDate">Select closing date:</label>
-				<input type="date" name="cDate" id="cDate" class="form-control" value="<% out.println(rs.getDate("endDate")); %>" required>
+				<input type="date" name="cDate" id="cDate" class="form-control" value="<%= rs.getString("endDate") %>" required>
 			</div>
 
 			<div class="form-group">

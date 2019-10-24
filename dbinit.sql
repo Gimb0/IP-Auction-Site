@@ -33,7 +33,7 @@ INSERT INTO users (email, username, name, password) VALUES ("m.abdo@yahoo.com", 
 INSERT INTO users (email, username, name, password) VALUES ("j.dib@msn.com", "xxx_dib", "Joshua Dib", "HpLaptop");
 INSERT INTO users (email, username, name, password) VALUES ("gimbo@gimboscloud.com", "gimbo", "Brad Gimbo", "N-O-D-E");
 
-INSERT INTO items (name, description, category, location, filename, startPrice, curPrice, startDate, endDate, itemOwner) VALUES ("MetaBox Laptop", "Laptop that breaks", "Computers/Laptops", "Sydney", "unknown0.jpg", 1500, 1500, '2019/11/2', '2019/11/10', "xxx_abdo");
-INSERT INTO items (name, description, category, location, filename, startPrice, curPrice, startdate, endDate, itemOwner) VALUES ("ESP8266", "TCP/IP stacked circuit", "IOT", "QLD", "unknown1.jpg", 25, 25, '2019/10/26', '2019/10/30', "gimbo");
+INSERT INTO items (name, description, category, location, filename, startPrice, curPrice, startDate, endDate, itemOwner) VALUES ("MetaBox Laptop", "Laptop that breaks", "Computers/Laptops", "Sydney", "unknown0.jpg", 1500, 1500, '2019-11-2', '2019-11-10', "xxx_abdo");
+INSERT INTO items (name, description, category, location, filename, startPrice, curPrice, startdate, endDate, itemOwner) VALUES ("ESP8266", "TCP-IP stacked circuit", "IOT", "QLD", "unknown1.jpg", 25, 25, '2019-10-26', '2019-10-30', "gimbo");
 
-INSERT INTO bidhistory (itemName, username, price, date) VALUES ("MetaBox Laptop", "xxx_abdo", 1500, '2019/10/23');
+INSERT INTO bidhistory (itemName, username, price, date) VALUES ("MetaBox Laptop", "xxx_abdo", 1500, '2019-10-23');
