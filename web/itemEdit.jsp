@@ -43,7 +43,7 @@
 			<h2>Create/Edit - Item listing</h2>
 		</div>
 
-		<form id="form" action="itemSave.jsp" method="POST">
+		<form id="form" action="itemSave.jsp?edit=true" method="POST">
 			<div class="form-group">
 				<label for="iName">Product Name:</label>
 				<input type="text" name="iName" id="iName" class="form-control" value="<% out.println(itemName); %>" required>
