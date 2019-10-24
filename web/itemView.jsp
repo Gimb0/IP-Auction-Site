@@ -24,7 +24,7 @@
 				<%
 					String itemName = request.getParameter("item");
 					Class.forName("org.sqlite.JDBC");
-					Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+					Connection conn = DriverManager.getConnection("jdbc:sqlite:/xampp/tomcat/webapps/jsptut/ip-auction.db");
 
 					Statement stat = conn.createStatement();
 
@@ -32,7 +32,7 @@
 					
 
 					rs.next();
-					out.println("<img src=\"../assets/" + rs.getString("filename") + "\" onerror=this.src='../assets/alt.jpg' height=\"250px\" width=\"250px\" style=\"float:right\">");
+					out.println("<img src=\"../assets/" + rs.getString("filename") + "\" height=\"250px\" width=\"250px\" style=\"float:right\">");
 					out.println("<h1 name=\"iName\" id=\"iName\"><strong>" + rs.getString("name") + "</strong></h1>");
 					out.println("<h4 name=\"cDate\" id=\"cDate\">Closing on: " + rs.getString("endDate") + "</h3>");
 					out.println("<h4 name=\"lPrice\" id=\"lPrice\">" + rs.getString("curPrice") +"</h3>");
@@ -43,8 +43,11 @@
 				<div>
 					<input type="hidden" value="<% out.println(itemName); %>">
 					<label for="bid" class="font-weight-bold">Enter an amount to bid</label>
-					<input type="number" name="bid" id="bid" class="form-control" 
-					min=<% out.println(rs.getString("curPrice")); %>" value=<% out.println((rs.getString("curPrice"))); %> required>
+					<%uName = (String)session.getAttribute("uname");
+					  if(uName != null && uName != "") { %>
+						<input type="number" name="bid" id="bid" class="form-control" 
+						min=<% out.println(rs.getString("curPrice")); %>" value=<% out.println((rs.getString("curPrice"))); %> required>
+					  <% }%>
 				</div>
 				<div>
 					<input type="submit" class="btn btn-primary btn-lg btn-block">
@@ -53,7 +56,7 @@
 			
 			<div class="item-details">
 				<h4>Description</h4>
-				<p class=""><% out.println(rs.getString("description")); %></p>
+				<p class=""
 			</div>
 
 			<div>
@@ -65,13 +68,14 @@
 						<th>Amount</th>
 					</thead>
 					<tbody>
+						<tr>
 						<%
 							rs.close();
-							rs = stat.executeQuery("SELECT username, price, date FROM bidhistory WHERE itemName=\""+ itemName + "\"");
+							rs = stat.executeQuery("SELECT username, price, time FROM bidhistory WHERE itemName=\""+ itemName + "\"");
 
 							while(rs.next()) {
 								out.println("<tr>");
-									out.println("<td>" + (String)rs.getDate("date") + "</td>");
+									out.println("<td>" + rs.getString("time") + "</td>");
 									out.println("<td>" + rs.getString("username") + "</td>");
 									out.println("<td>" + rs.getString("price") + "</td>");
 								out.println("</tr>");
@@ -84,14 +88,17 @@
 				rs = stat.executeQuery("SELECT itemOwner FROM items WHERE name=\""+ itemName + "\"");
 
 				rs.next();
-				if(uName.equals(rs.getString("itemOwner"))) {
-					out.println("<a href=\"itemEdit.jsp?item=" + itemName + "\"><button class=\"btn btn-primary\">Edit Item</button></a>");
+				if (uName != null) {
+					if(uName.equals(rs.getString("itemOwner"))) {
+						out.println("<a href=\"itemEdit.jsp?item=" + itemName + "\"><button class=\"btn btn-primary\">Edit Item</button></a>");
+					}
 				}
 
 				rs.close();
 				conn.close();
 			%>
 		</div>
+		
 		<%@ include file="footer.html" %>
 	</body>
 

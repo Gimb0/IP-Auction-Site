@@ -19,7 +19,7 @@
 	<%
 	String item;
 	item = String.valueOf((String)session.getAttribute("noUserExists"));		
-	if(item.equals("No user found with this email.")) { %> 
+	if(item.equals("Invalid email or password")) { %> 
 		<div >
 		<span class="closerr" > ${noUserExists}</span>
 		</div>
