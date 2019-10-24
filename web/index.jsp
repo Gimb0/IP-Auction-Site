@@ -1,6 +1,9 @@
 <%@ page contentType="text/html" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="org.sqlite.*" %>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Calendar"%>
 
 <!DOCTYPE html>
 <html>
@@ -12,13 +15,12 @@
         <link rel="stylesheet" type="text/css" href="bootstrap.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
-        
     <body>
         <%@ include file="header.jsp" %>
         <br>
         <br>
 
-        <div class="filterList">
+        <div class="filterList" style="margin-left: 10px;">
             <form action="index.jsp" method="GET">
                 <fieldset class="form-group">
                     <legend>Categories</legend>
@@ -26,7 +28,7 @@
                         <select class="custom-select" name="category">
                             <%
                                 Class.forName("org.sqlite.JDBC");
-                                Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+                                Connection conn = DriverManager.getConnection("jdbc:sqlite:/xampp/tomcat/webapps/jsptut/ip-auction.db");
 
                                 Statement stat = conn.createStatement();
 
@@ -109,8 +111,16 @@
                 conn.close();
             %>
             <br>
+			
+        <%  
+			Date today = Calendar.getInstance().getTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss");
+			String folderName = formatter.format(today);
+			out.println("Folder Name = " + folderName);
+		%>
             <br>
         </main>
+		
         <footer>
             <%@ include file="footer.html" %>
         </footer>
@@ -152,5 +162,6 @@
             });
         }
     </script>
+
 
 </html>
