@@ -27,7 +27,7 @@
 				<%
 					String itemName = request.getParameter("item");
 					Class.forName("org.sqlite.JDBC");
-					Connection conn = DriverManager.getConnection("jdbc:sqlite:/usr/local/tomcat/webapps/jsptut/ip-auction.db");
+					Connection conn = DriverManager.getConnection("jdbc:sqlite:/xampp/tomcat/webapps/jsptut/ip-auction.db");
 
 					Statement stat = conn.createStatement();
 
@@ -44,14 +44,18 @@
 					rs.next();
 					out.println("<img src='../assets/" + rs.getString("filename") + "' onerror=this.src='../assets/alt.jpg' height=\"250px\" width=\"250px\" style=\"float:right\">");
 					out.println("<h1 name=\"iName\" id=\"iName\"><strong>" + rs.getString("name") + "</strong></h1>");
-                    out.println("<h4 name=\"cDate\" id=\"cDate\">Opening on: " + rs.getString("startDate") + "</h4>");
-					out.println("<h4 name=\"cDate\" id=\"cDate\">Closing on: " + rs.getString("endDate") + "</h4>");
+                    out.println("<h4 name=\"cDate\" id=\"cDate\"> <strong> Opening on: </strong>" + rs.getString("startDate") + "</h4>");
+					out.println("<h4 name=\"cDate\" id=\"cDate\"><strong>Closing on: </strong>" + rs.getString("endDate") + "</h4>");
 					Double price = rs.getDouble("curPrice") + 1.00;
-					out.println("<h4 name=\"lPrice\" id=\"lPrice\">Current Bid: $" + rs.getDouble("curPrice") +"</h4>");
-					out.println("<h4 name=\"itemOwner\" id=\"itemOwner\">Vendor: " + rs.getString("itemOwner") +"</h4>");
+					out.println("<h4 name=\"lPrice\" id=\"lPrice\"><strong>Current Bid: </strong>$" + rs.getDouble("curPrice") +"</h4>");
+					out.println("<h4 name=\"itemOwner\" id=\"itemOwner\"><strong>Vendor: </strong>" + rs.getString("itemOwner") +"</h4>");
 					
 				%>
 			</div>
+			
+			<h4><strong>Description</strong></h4>
+			<p class=""><% out.println(rs.getString("description"));%></p>
+			
             <% if ((currentDate.after(startDate) || (currentDate.equals(startDate)) && (currentDate.before(endDate)))) { %>
 			<form action="addBid.jsp?item=<%= rs.getString("name") %>" method="POST" class="item-details">
 				<div>
@@ -68,11 +72,10 @@
 					 <% } %> 
 				</div>
 			</form>
+			
 			<% } else {%>
 			<div class="item-details">
-				<h4>Description</h4>
-				<p class=""><% out.println(rs.getString("description"));%></p>
-						<h3 style="text-align:center; color:red;" >This listing is either not available ot has expired.</h3>			
+						<h3 style="text-align:center; color:red;" >This listing is not available. <br> It has either expired or reserved for a future date..</h3>			
 			</div>
 			<% } %>
 			
