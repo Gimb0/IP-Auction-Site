@@ -29,13 +29,14 @@
 
 		Statement stat = conn.createStatement();
 
-		ResultSet rs = stat.executeQuery("SELECT description, category, location, startPrice, curPrice, endDate FROM items WHERE name=\"" + itemName + "\"");
+		ResultSet rs = stat.executeQuery("SELECT description, category, location, startPrice, curPrice, startDate, endDate FROM items WHERE name=\"" + itemName + "\"");
 		
 		rs.next();
 			String priceEdit="";
 			String location = rs.getString("location");
 			Double startPrice = rs.getDouble("startPrice");
 			Double curPrice = rs.getDouble("curPrice");
+			String startDate = rs.getString("startDate");
 			String closeDate = rs.getString("endDate");
 			String description = rs.getString("description");
 			if(curPrice>startPrice){
@@ -65,11 +66,16 @@
 
 			<div class="form-group">
 				<label for="lPrice">Enter the listing price</label>
-				<input type="number" name="lPrice" id="lPrice" class="form-control" min="1.00" step="1.00" value="<% out.println(startPrice); %>" required <% out.println(priceEdit); %>>
+				<input type="number" name="lPrice" id="lPrice" class="form-control" min="1.00" step="1.00" value="<%= startPrice %>" required>
 			</div>
 
 			<div class="form-group">
-				<label for="cDate">Select closing date:</label>
+				<label for="cDate">Select Opening Date</label>
+				<input type="date" name="oDate" id="oDate" class="form-control" value="<%= startDate %>" required>
+			</div>
+
+			<div class="form-group">
+				<label for="cDate">Select Closing Date</label>
 				<input type="date" name="cDate" id="cDate" class="form-control" value="<% out.println(closeDate); %>" required>
 			</div>
 

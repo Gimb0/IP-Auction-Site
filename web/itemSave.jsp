@@ -15,8 +15,8 @@
 	String price = request.getParameter("lPrice");
 
 	Date today = Calendar.getInstance().getTime();
-	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss");
-	String startDate = formatter.format(today);
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	String startDate = request.getParameter("oDate");
 
 	String endDate = request.getParameter("cDate");
 	String img = "ehh";
@@ -31,7 +31,7 @@
 	ResultSet rs = stat.executeQuery("SELECT name FROM items WHERE name = '" + name + "'");
 
 	if(rs.next()) {
-		int updateStat = stat.executeUpdate("UPDATE items SET description = '" + description + "', category = '" + category + "', location = '" + location + "', startPrice = '" + price + "', endDate = '" + endDate + "' WHERE name = '" + name + "';");
+		int updateStat = stat.executeUpdate("UPDATE items SET description = '" + description + "', category = '" + category + "', location = '" + location + "', startPrice = '" + price + "', startDate = '" + startDate + "', endDate = '" + endDate + "' WHERE name = '" + name + "';");
 		conn.close();
 	} else {
 		int insertStat = stat.executeUpdate("INSERT INTO items (name, description, category, location, filename, startPrice, curPrice, startDate, endDate, itemOwner) VALUES (\"" + name + "\",\"" + description + "\",\"" + category + "\",\"" + location + "\",\"" + img + "\",\"" + price + "\",\"" + price + "\",\"" + startDate + "\",\"" + endDate + "\", \"" + uName + "\");");

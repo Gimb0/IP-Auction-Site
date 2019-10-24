@@ -55,8 +55,15 @@
 			</div>
 
 			<div class="form-group">
-				<label for="cDate">Select closing date:</label>
-				<input type="date" name="cDate" id="cDate" class="form-control" value="2018-01-01" required>
+				<label for="oDate">Select Opening Date</label>
+				<input type="date" name="oDate" id="oDate" class="form-control" required>
+			</div>
+			<%
+
+			%>
+			<div class="form-group">
+				<label for="cDate">Select Closing Date</label>
+				<input type="date" name="cDate" id="cDate" class="form-control" required>
 			</div>
 
 			<div class="form-group">
